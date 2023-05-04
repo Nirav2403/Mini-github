@@ -134,6 +134,7 @@
   display: flex;
   gap: 12px;
   height: max-content;
+  flex-wrap: wrap;
 }
 
 .git-repo-status-details > div {
