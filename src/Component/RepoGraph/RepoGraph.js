@@ -155,6 +155,8 @@ const RepoGraph = (props) => {
           : repoActivity === "code_frequency"
           ? renderGraphForAddition()
           : repoActivity === "commit_activity" &&
+            repoStatus &&
+            Array.isArray(repoStatus) &&
             repoStatus.map((item) => renderGraphForCommits(item))}
       </div>
     </div>
