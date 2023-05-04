@@ -1,0 +1,18 @@
+.repo-charts {
+  width: 70%;
+  margin: 20px auto;
+  overflow: unset;
+  padding-bottom: 20px;
+}
+
+.repo-charts > div {
+  padding: 20px 25px;
+}
+
+.repo-charts canvas {
+  height: 500px !important;
+}
+
+.repo-charts-contributer-name {
+  background-color: #f6f8fa;
+}
