@@ -5,6 +5,8 @@ import GitHeader from "../GitHeader/GitHeader";
 import { useLocation } from "react-router-dom";
 import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import moment from "moment";
+import { getDaysBetweenDates } from "../../Utils/getDatesArray";
 
 const RepoGraph = (props) => {
   const { repoStatus = [] } = props || {};
@@ -35,8 +37,6 @@ const RepoGraph = (props) => {
     getRepoActivities();
   }, []);
 
-  useEffect(() => {}, [repoStatus]);
-
   const handleRepoActivity = (e) => {
     setRepoActivity(e.target.value);
     getRepoActivities(e.target.value);
@@ -58,7 +58,7 @@ const RepoGraph = (props) => {
   const renderRepoGraphForContributor = (item) => {
     const weeks = item.weeks || [];
     const keys = Object.keys(weeks[0] || {})?.slice(1, 4) || [];
-    const labels = weeks.map((item) => item.w);
+    const labels = weeks.map((item) => moment.unix(item.w).format("ll"));
     const datasets = keys.map((key) => {
       const data = weeks.map((item) => item[key]);
       return {
@@ -86,7 +86,7 @@ const RepoGraph = (props) => {
   };
 
   const renderGraphForAddition = () => {
-    const labels = repoStatus.map((item) => item[0]);
+    const labels = repoStatus.map((item) => moment.unix(item[0]).format("ll"));
     const addition = repoStatus.map((item) => item[1]);
     const deletions = repoStatus.map((item) => item[2]);
     const data = {
@@ -147,18 +147,16 @@ const RepoGraph = (props) => {
         repoActivity={repoActivity}
         handleRepoActivity={handleRepoActivity}
       />
-      <div>
-        {repoActivity === "contributors" &&
-        repoStatus &&
-        Array.isArray(repoStatus)
-          ? repoStatus.map((item) => renderRepoGraphForContributor(item))
-          : repoActivity === "code_frequency"
-          ? renderGraphForAddition()
-          : repoActivity === "commit_activity" &&
-            repoStatus &&
-            Array.isArray(repoStatus) &&
-            repoStatus.map((item) => renderGraphForCommits(item))}
-      </div>
+      {repoStatus && Array.isArray(repoStatus) && (
+        <div>
+          {repoActivity === "contributors"
+            ? repoStatus.map((item) => renderRepoGraphForContributor(item))
+            : repoActivity === "code_frequency"
+            ? renderGraphForAddition()
+            : repoActivity === "commit_activity" &&
+              repoStatus.map((item) => renderGraphForCommits(item))}
+        </div>
+      )}
     </div>
   );
 };

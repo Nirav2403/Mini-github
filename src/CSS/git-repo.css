@@ -58,6 +58,14 @@
   gap: 10px;
 }
 
+@media (max-width: 800px) {
+  .git-repo-status-section {
+    flex-direction: column;
+    align-items: start !important;
+    gap: 10px;
+  }
+}
+
 .git-repo-first-section {
   padding: 20px 25px;
   background-color: #f6f8fa;

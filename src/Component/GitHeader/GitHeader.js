@@ -63,18 +63,9 @@ const GitHeader = (props) => {
               value={repoActivity}
               onChange={props.handleRepoActivity}
             >
-              <option value="code_frequency">
-                Additions
-              </option>
-              <option value="code_frequency">
-                Deletions
-              </option>
-              <option value="commit_activity">
-                Commits
-              </option>
-              <option value="contributors">
-                Contributors
-              </option>
+              <option value="code_frequency">Additions/Deletions</option>
+              <option value="commit_activity">Commits</option>
+              <option value="contributors">Contributors</option>
             </select>
           </div>
         </div>
